@@ -2,5 +2,5 @@
   tasks:
     - name: copy assets
       copy:
-          src: sourcefile
-          est: /home/vagrant/destfile
+          src: Class2
+          est: /home/vagrant/Class2
