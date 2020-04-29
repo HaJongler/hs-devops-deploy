@@ -2,5 +2,20 @@
   tasks:
     - name: copy assets
       copy:
-          src: Class2
-          dest: /home/vagrant/Class2
+        src: Class2
+        dest: /home/vagrant/Class2
+        mode: '0777'
+      
+    - name: create system service
+      become: true
+      template:
+        src: simple.go.server.service
+        dest: /etc/systemd/system/simple.go.server.service
+        
+    - name: restart service automatically
+      become: true
+      systemd:
+        name: simple.go.server
+        enabled: yes
+        state: restarted
+        

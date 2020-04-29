@@ -9,9 +9,7 @@ pipeline {
       }
       stage('Deliver') {
          steps {
-            sshagent(['vagrant-ssh']) {
-                sh 'ansible-playbook -i hosts.ini playbook.yml'
-            }
+            ansiblePlaybook become: true, credentialsId: 'vagrant-ssh', inventory: 'hosts.ini', playbook: 'playbook.yml'
          }
       }
    }
