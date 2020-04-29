@@ -3,4 +3,4 @@
     - name: copy assets
       copy:
           src: Class2
-          est: /home/vagrant/Class2
+          dest: /home/vagrant/Class2
