@@ -9,8 +9,8 @@ pipeline {
       }
       stage('Deliver') {
          steps {
-            sshagent(['toobox-vagrant-key']) {
-                sh 'ansible-playbook -i hosts.ini'
+            sshagent(['vagrant-ssh']) {
+                sh 'ansible-playbook -i hosts.ini playbook.yml'
             }
          }
       }
