@@ -10,7 +10,7 @@ pipeline {
       stage('Deliver') {
          steps {
             sshagent(['vagrant-ssh']) {
-                sh 'ansible-playbook -i hosts.ini playbook.yml'
+                sh 'scp -o StrictHostKeyChecking=no Class2 'vagrant@10.10.50.3:~''
             }
          }
       }
