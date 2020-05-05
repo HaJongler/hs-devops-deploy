@@ -1,6 +1,10 @@
 pipeline {
 	agent any
 	
+	parameters {
+		gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', name: 'BRANCH', type: 'PT_BRANCH'
+	}
+	
 	stages {
 		stage('Copy artifact') { 
 			steps {
@@ -9,7 +13,9 @@ pipeline {
 		}
 		stage('Deliver to prod') {
 			when {
-				branch 'master'
+				expression {
+					params.BRANCH == 'master'
+				}
 			}
 			steps {
 				ansiblePlaybook become: true, credentialsId: 'vagrant-ssh', inventory: 'environments/production/hosts.ini', playbook: 'playbook.yml'
@@ -17,7 +23,9 @@ pipeline {
 		}
 		stage('Deliver to staging') {
 			when {
-				branch 'staging'
+				expression {
+					params.BRANCH == 'staging'
+				}
 			}
 			steps {
 				ansiblePlaybook become: true, credentialsId: 'vagrant-ssh', inventory: 'environments/staging/hosts.ini', playbook: 'playbook.yml'
