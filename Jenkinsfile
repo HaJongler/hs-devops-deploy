@@ -18,7 +18,6 @@ pipeline {
 				}
 			}
 			steps {
-				sh 'scp -o StrictHostKeyChecking=no Class2 vagrant@10.10.50.4:~'
 				ansiblePlaybook become: true, credentialsId: 'vagrant-ssh', inventory: 'environments/production/hosts.ini', playbook: 'playbook.yml'
 			}
 		}
