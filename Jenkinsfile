@@ -14,7 +14,7 @@ pipeline {
 		stage('Deliver to prod') {
 			when {
 				expression {
-					${params.BRANCH} == 'master'
+					params.BRANCH == 'master'
 				}
 			}
 			steps {
@@ -24,7 +24,7 @@ pipeline {
 		stage('Deliver to staging') {
 			when {
 				expression {
-					${params.BRANCH} == 'staging'
+					params.BRANCH == 'staging'
 				}
 			}
 			steps {
