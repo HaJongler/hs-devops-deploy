@@ -28,7 +28,7 @@ pipeline {
 				}
 			}
 			steps {
-				sh 'docker run -v $HOME/environments/production:/etc/newman -t postman/newman run "https://www.getpostman.com/collections/e512d3d2e594071a5cfa" -e postman_environment.json'
+				sh 'docker run -v $HOME/workspace/Deploy/environments/production:/etc/newman -t postman/newman run "https://www.getpostman.com/collections/e512d3d2e594071a5cfa" -e postman_environment.json'
 			}
 		}
 		stage('Deliver to staging') {
@@ -48,7 +48,7 @@ pipeline {
 				}
 			}
 			steps {
-				sh 'docker run -v $HOME/environments/staging:/etc/newman -t postman/newman run "https://www.getpostman.com/collections/e512d3d2e594071a5cfa" -e postman_environment.json'
+				sh 'docker run -v $HOME/workspace/Deploy/environments/staging:/etc/newman -t postman/newman run "https://www.getpostman.com/collections/e512d3d2e594071a5cfa" -e postman_environment.json'
 			}
 		}
 	}
