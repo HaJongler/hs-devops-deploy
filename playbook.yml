@@ -2,8 +2,8 @@
   tasks:
     - name: copy assets
       copy:
-        src: Class2
-        dest: /home/vagrant/Class2
+        src: GoServerWithTests
+        dest: /home/vagrant/GoServerWithTests
         mode: '0777'
       
     - name: create system service
