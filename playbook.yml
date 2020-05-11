@@ -3,7 +3,7 @@
     - name: copy assets
       copy:
         src: GoServerWithTests
-        dest: /home/vagrant/GoServerWithTests
+        dest: /home/{{ ansible_user }}/GoServerWithTests
         mode: '0777'
       
     - name: create system service

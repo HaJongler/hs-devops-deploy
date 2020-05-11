@@ -13,7 +13,7 @@ pipeline {
 		}
 		stage('Deliver') {
 			steps {
-				ansiblePlaybook become: false, 
+				ansiblePlaybook become: true, 
 				credentialsId: 'vagrant-ssh', 
 				inventory: "environments/${params.TARGET_ENV}/hosts.ini", 
 				playbook: 'playbook.yml'
