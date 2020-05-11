@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: simple-go-server
-        image: jonathanhar/simple-go-server:latest
+        image: jonathanhar/simple-go-server:v1.0
         ports:
         - containerPort: 9090
