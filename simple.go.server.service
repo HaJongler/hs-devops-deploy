@@ -3,9 +3,9 @@ Description=Simple service with API written in Go
 After=network.target
 
 [Service]
-Type=Class2
-ExecStart=/home/vagrant/Class2
-PIDFile=/var/run/Class2
+Type=GoServerWithTests
+ExecStart=/home/{{ ansible_user }}/GoServerWithTests
+PIDFile=/var/run/GoServerWithTests
 
 [Install]
 WantedBy=default.target
