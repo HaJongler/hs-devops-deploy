@@ -2,13 +2,13 @@ pipeline {
 	agent any
 	
 	parameters {
-		choice(name: 'TARGET_ENV', choices: ['staging', 'production', 'ec2'], description: 'Please choose an environment')
+		choice(name: 'TARGET_ENV', choices: ['staging', 'production'], description: 'Please choose an environment')
 	}
 	
 	stages {
-		stage('Copy artifact') { 
+		stage('Copy artifacts') { 
 			steps {
-				copyArtifacts filter: 'GoServerWithTests', fingerprintArtifacts: true, projectName: 'GoServerWithTests', selector: lastSuccessful()
+				copyArtifacts filter: 'ruby_deploy.tar.gz', fingerprintArtifacts: true, projectName: 'finalTest', selector: lastSuccessful()
 			}
 		}
 		stage('Deliver') {
@@ -18,11 +18,6 @@ pipeline {
 				credentialsId: 'vagrant-ssh', 
 				inventory: "environments/${params.TARGET_ENV}/hosts.ini", 
 				playbook: 'playbook.yml'
-			}
-		}
-		stage('Test') {
-			steps {
-				sh "docker run -v $HOME/workspace/Deploy/environments/${params.TARGET_ENV}:/etc/newman -t postman/newman run \"https://www.getpostman.com/collections/e512d3d2e594071a5cfa\" -e postman_environment.json"
 			}
 		}
 	}

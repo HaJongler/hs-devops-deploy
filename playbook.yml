@@ -2,20 +2,20 @@
   tasks:
     - name: copy assets
       copy:
-        src: GoServerWithTests
-        dest: /home/{{ ansible_user }}/GoServerWithTests
+        src: ruby_deploy.tar.gz
+        dest: /home/{{ ansible_user }}/ruby_deploy.tar.gz
         mode: '0777'
+    
+    - name: Extract tar
+      shell: tar -xzvf ruby_deploy.tar.gz
       
-    - name: create system service
-      become: true
-      template:
-        src: simple.go.server.service
-        dest: /etc/systemd/system/simple.go.server.service
+    - name: docker build
+      shell: docker build -t jonathanhar/ruby-test .
+      args:
+        chdir: /home/{{ ansible_user }}/
         
-    - name: restart service automatically
-      become: true
-      systemd:
-        name: simple.go.server
-        enabled: yes
-        state: restarted
+    - name: docker run
+      shell: docker run -d --restart always -p 9100:9100 jonathanhar/ruby-test:latest
+      args:
+        chdir: /home/{{ ansible_user }}/
         
